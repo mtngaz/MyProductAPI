@@ -1,46 +1,46 @@
 package org.example.productrestapi.controller;
 
 import org.example.productrestapi.entity.Product;
-import org.example.productrestapi.repository.ProductRepository;
+import org.example.productrestapi.service.ProductService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController()
+@RestController
 @RequestMapping("/api")
 public class ProductController {
-    private final ProductRepository productRepository;
+    private final ProductService productService;
 
-    public ProductController(ProductRepository productRepository) {
-        this.productRepository = productRepository;
+    public ProductController(ProductService productService) {
+        this.productService = productService;
     }
 
     @GetMapping("/products")
     public List<Product> findAllProduct() {
-        return productRepository.findAllProduct();
+        return productService.findAllProduct();
     }
 
     @GetMapping("/products/{id}")
     public Product findById(@PathVariable Long id) {
-        return productRepository.findById(id).get();
+        return productService.findById(id).get();
     }
 
     @PostMapping("/products")
     public ResponseEntity<String> save(@RequestBody Product product) {
-        productRepository.save(product);
+        productService.save(product);
         return ResponseEntity.ok("The product was saved successfully");
     }
 
     @PutMapping("/products/{id}")
     public ResponseEntity<String> update(@PathVariable Long id, @RequestBody Product product) {
-        productRepository.update(id, product);
+        productService.update(id, product);
         return ResponseEntity.ok("The product was update successfully");
     }
 
     @DeleteMapping("/products/{id}")
     public ResponseEntity<String> delete(@PathVariable Long id) {
-        productRepository.delete(id);
+        productService.delete(id);
         return ResponseEntity.ok("The product was delete successfully");
     }
 }

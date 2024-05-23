@@ -10,7 +10,7 @@ public class ProductValidator {
         if (product.getName() == null) {
             throw new ProductNameNullException("The product name is required when creating");
         }
-        if (product.getName().length() > 256 || product.getDescription().length() > 4097) {
+        if (product.getName().length() > 256 || product.getDescription().length() > 4096) {
             throw new CharacterLimitException("The name of the product name or description is exceeded by the number of characters");
         }
         if (product.getPrice() < 0) {
