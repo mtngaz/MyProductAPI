@@ -1,5 +1,6 @@
 package org.example.productrestapi.controller;
 
+
 import org.example.productrestapi.entity.Product;
 import org.example.productrestapi.service.ProductService;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +25,26 @@ public class ProductController {
     @GetMapping("/products/{id}")
     public Product findById(@PathVariable Long id) {
         return productService.findById(id).get();
+    }
+
+    @GetMapping(value = "/products", params = "sort")
+    public List<Product> findProductsByNameSorted(@RequestParam(name = "sort") String sort) {
+        return productService.findAllProductsSortedByName(sort);
+    }
+
+    @GetMapping(value = "/products", params = "less")
+    public List<Product> findProductsByPriceLessThan(@RequestParam(name = "less") double price) {
+        return productService.findProductsByPriceLessThan(price);
+    }
+
+    @GetMapping(value = "/products", params = "greater")
+    public List<Product> findProductsByPriceGreaterThan(@RequestParam(name = "greater") double price) {
+        return productService.findProductsByPriceGreaterThan(price);
+    }
+
+    @GetMapping(value = "/products", params = "partName")
+    public List<Product> findProductsByPartOfName(@RequestParam(name = "partName") String name) {
+        return productService.findProductsByPartOfName(name);
     }
 
     @PostMapping("/products")
